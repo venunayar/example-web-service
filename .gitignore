@@ -1,0 +1,12 @@
+/build/
+/dist/
+/*.egg-info
+**/.DS_Store
+
+*.pyc
+*.swp
+*.bak
+*.log
+
+/venv/
+venv
