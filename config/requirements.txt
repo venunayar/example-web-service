@@ -1,6 +1,9 @@
+bunch
 flask
+flask-classful
 flask-login
 flask-sqlalchemy
 flask-user
 sqlalchemy
 mysqlclient
+requests

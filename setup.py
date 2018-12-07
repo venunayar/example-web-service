@@ -11,7 +11,7 @@ with open('./config/requirements.txt') as f:
 with open('./config/version.json') as f:
     cfg_dict = json.load(f)
 
-# name from cofngi file
+# name from config file
 NAME = cfg_dict['progname']
 # version from config file
 VERSION = cfg_dict['version']
@@ -19,10 +19,10 @@ VERSION = cfg_dict['version']
 setup(
     name=NAME,
     version=VERSION,
-    description='Library Managament Service (LMS)',
+    description='Library Management Service (LMS)',
     license='PSF',
-    author='Venu Nayar',
-    author_email='venu.nayar@github.com',
+    author='Nayar Tutorials',
+    author_email='tutorials@naar.org',
     classifiers=[
         'Development Status :: 2 - Alpha',
         'Intended Audience :: Developers',
@@ -35,6 +35,6 @@ setup(
     packages=find_packages(where='./', exclude=['venv']),
     # include any extra package data (static files etc)
     include_package_data=True,
-    # install packages fromn requirements file
+    # install packages from requirements file
     install_requires=[x.strip() for x in content]
 )
