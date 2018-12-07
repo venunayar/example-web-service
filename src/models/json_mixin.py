@@ -46,7 +46,7 @@ class OutputMixin(object):
                     res[relation.key] = [i.to_dict(backref=self.__table__, exclude=exclude) for i in value]
         return res
 
-    def to_json(self, rel=None, exclude=None, filters=None):
+    def to_json(self, rel=None, exclude=None):
         def extended_encoder(x):
             try:
                 return str(x)
@@ -58,24 +58,24 @@ class OutputMixin(object):
             except TypeError:
                 pass
 
-        def remove_nulls(d, filters=filters):
-            if filters is None or 'nulls' not in filters:
+        def remove_nulls(d, obj_filters=obj_filters):
+            if obj_filters is None or 'nulls' not in obj_filters:
                 return d
 
             if isinstance(d, list):
                 list_dict = []
                 for l in d:
                     list_dict.append(
-                        dict((k, remove_nulls(v, filters=filters)) for k, v in l.iteritems() if v is not None))
+                        dict((k, remove_nulls(v, obj_filters=obj_filters)) for k, v in l.iteritems() if v is not None))
                 return list_dict
 
             if not isinstance(d, dict):
                 return d
 
-            return dict((k, remove_nulls(v, filters=filters)) for k, v in d.iteritems() if v is not None)
+            return dict((k, remove_nulls(v, obj_filters=obj_filters)) for k, v in d.iteritems() if v is not None)
 
         if rel is None:
             rel = self.RELATIONSHIPS_TO_DICT
 
-        return json.dumps(remove_nulls(self.to_dict(rel, exclude=exclude), filters=filters), default=extended_encoder,
+        return json.dumps(remove_nulls(self.to_dict(rel, exclude=exclude), obj_filters=filters), default=extended_encoder,
                           indent=4)
